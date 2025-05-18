@@ -1,0 +1,63 @@
+<!--
+    Suraksha Home/Intro Page
+    - Feature navigation panel (left)
+    - Dynamic background image (fading, changes per feature)
+    - Translucent overlay
+    - Suraksha logo (top center)
+    - Settings button (top left)
+    - Scroll-animated intro sections
+    - Feature content area (changes on click)
+    - All info icons, file upload, and input styles as before
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Suraksha App - Home</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Noto+Sans+Devanagari:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
+</head>
+<body>
+    <img id="featureBg" class="feature-bg" src="Assets/intro_default.jpg" alt="Background" />
+    <div class="feature-overlay"></div>
+    <div style="position:fixed;top:32px;left:50%;transform:translateX(-50%);z-index:30;">
+        <img src="Assets/Suraksha Logo.png" alt="Suraksha Logo" style="height:70px;filter:drop-shadow(0 2px 8px #efd40633);">
+    </div>
+    <nav class="feature-nav">
+        <button class="button" id="settingsBtn" title="Settings">
+          <span class="svg-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M12 15.5C13.933 15.5 15.5 13.933 15.5 12C15.5 10.067 13.933 8.5 12 8.5C10.067 8.5 8.5 10.067 8.5 12C8.5 13.933 10.067 15.5 12 15.5Z" stroke="#090226" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M19.4 15A1.65 1.65 0 0 0 20 13.6C20.217 12.933 20.217 12.067 20 11.4A1.65 1.65 0 0 0 19.4 9M4.6 9A1.65 1.65 0 0 0 4 10.4C3.783 11.067 3.783 11.933 4 12.6A1.65 1.65 0 0 0 4.6 15M9 19.4A1.65 1.65 0 0 0 10.4 20C11.067 20.217 11.933 20.217 12.6 20A1.65 1.65 0 0 0 15 19.4M15 4.6A1.65 1.65 0 0 0 13.6 4C12.933 3.783 12.067 3.783 11.4 4A1.65 1.65 0 0 0 9 4.6" stroke="#090226" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </span>
+          <span class="lable">Settings</span>
+        </button>
+        <button class="feature-nav-btn selected" data-feature="intro"><span class="feature-icon"><i class='bx bxs-bulb'></i></span><span class="feature-label">Home</span></button>
+        <button class="feature-nav-btn" data-feature="eurus"><span class="feature-icon"><i class='bx bx-bot'></i></span><span class="feature-label">Eurus</span></button>
+        <button class="feature-nav-btn" data-feature="complaint"><span class="feature-icon"><i class='bx bxs-file'></i></span><span class="feature-label">Complaint</span></button>
+        <button class="feature-nav-btn" data-feature="anonymity"><span class="feature-icon"><i class='bx bxs-user-voice'></i></span><span class="feature-label">Anonymity</span></button>
+        <button class="feature-nav-btn" data-feature="tracker"><span class="feature-icon"><i class='bx bxs-search-alt-2'></i></span><span class="feature-label">Tracker</span></button>
+        <button class="feature-nav-btn" data-feature="experts"><span class="feature-icon"><i class='bx bxs-group'></i></span><span class="feature-label">Experts</span></button>
+        <button class="feature-nav-btn" data-feature="authorities"><span class="feature-icon"><i class='bx bxs-phone'></i></span><span class="feature-label">Authorities</span></button>
+        <button class="feature-nav-btn" data-feature="awareness"><span class="feature-icon"><i class='bx bxs-book-content'></i></span><span class="feature-label">Awareness</span></button>
+    </nav>
+    <button class="sos-float-btn" title="Emergency SOS" onclick="alert('SOS feature coming soon!')">
+        <i class='bx bxs-alarm-exclamation'></i>
+        <span>SOS</span>
+    </button>
+    <div class="settings-dropdown" id="settingsDropdown">
+        <div class="dropdown-item">Profile</div>
+        <div class="dropdown-item">SOS Settings</div>
+        <div class="dropdown-item">Notification Settings</div>
+    </div>
+    <main id="featureMain">
+        <!-- Feature content will be injected here -->
+    </main>
+    <script src="home.js"></script>
+</body>
+</html>

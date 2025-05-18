@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Suraksha App - Welcome</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Noto+Sans+Devanagari:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        .center-animate-card {
+            position: fixed !important;
+            left: 50% !important;
+            top: 50% !important;
+            transform: translate(-90%, -50%) !important;
+            margin: 0 !important;
+            transition: all 1.1s cubic-bezier(.4,2,.6,1);
+            z-index: 10;
+        }
+        .logo-animate-down {
+            transition: transform 1.1s cubic-bezier(.4,2,.6,1);
+            transform: translateY(120px);
+        }
+        .fade-in {
+            opacity: 1;
+            pointer-events: auto;
+            transition: opacity 0.7s cubic-bezier(.4,2,.6,1);
+        }
+        .fade-out {
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.7s cubic-bezier(.4,2,.6,1);
+        }
+        .auth-btns { display: flex; flex-direction: column; gap: 18px; margin-top: 24px; }
+        .auth-btns button { padding: 14px 0; font-size: 1.1rem; border-radius: 12px; border: 2px solid #efd406; background: #fffbe6; color: #121349; font-weight: 700; cursor: pointer; transition: background 0.2s, color 0.2s; }
+        .auth-btns button:hover { background: #efd406; color: #121349; }
+        .switch-link { margin-top: 18px; color: #bfa100; cursor: pointer; text-align: center; display: block; font-size: 1rem; }
+        .switch-link:hover { text-decoration: underline; color: #121349; }
+        .back-btn { position: absolute; top: 18px; right: 18px; background: none; border: none; color: #bfa100; font-size: 1.2rem; cursor: pointer; }
+        .login-form, .register-form, .role-select { width: 100%; max-width: 340px; margin: 0 auto; }
+        .input-box { position: relative; width: 100%; height: auto; margin-bottom: 20px; display: flex; flex-direction: column; align-items: stretch; }
+        .input-box input { width: 100%; height: 100%; background: transparent; border: 1.5px solid #ddd; border-radius: 40px; outline: none; font-size: 16px; color: #333; padding-left: 20px; padding-right: 45px; transition: border-color 0.3s ease; }
+        .input-box input:focus { border-color: #7579e7; }
+        .input-box input::placeholder { color: #aaa; }
+        .input-box i { position: absolute; right: 15px; top: 50%; transform: translateY(-50%); font-size: 20px; color: #777; }
+        .btn { width: 100%; height: 45px; background: #7579e7; border: none; outline: none; border-radius: 40px; cursor: pointer; font-size: 16px; color: #fff; font-weight: 600; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); transition: background-color 0.3s ease; }
+        .btn:hover { background: #5a5fd7; }
+        .scrollable-form { max-height: 350px; overflow-y: auto; }
+        .info-icon { cursor: pointer; color: #7579e7; margin-left: 5px; }
+        .info-tooltip { display: none; position: absolute; background: #fff; border: 1px solid #ddd; padding: 8px; border-radius: 4px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); z-index: 100; }
+        .info-icon.active + .info-tooltip { display: block; }
+        .animated-btn { animation: pulse 1.5s infinite; }
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        .file-upload-label {
+            display: inline-block;
+            background: #121349;
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 40px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            text-align: center;
+            transition: background-color 0.3s ease;
+        }
+        .file-upload-label:hover {
+            background: #0e103d;
+        }
+        .file-upload-icon {
+            font-size: 1.2rem;
+            margin-right: 8px;
+        }
+        .file-upload-box input[type="file"] {
+            display: none;
+        }
+        .file-upload-list {
+            margin-top: 10px;
+            font-size: 0.9rem;
+            color: #333;
+        }
+        .plusButton {
+            background: none;
+            border: none;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.3s ease;
+        }
+        .plusButton:hover {
+            background-color: #f0f0f0;
+        }
+        .plusIcon {
+            width: 24px;
+            height: 24px;
+            fill: #7579e7;
+        }
+    </style>
+</head>
+<body>
+    <main>
+        <div class="logo-center" id="logoCenter">
+            <img src="Assets/Suraksha Logo.png" alt="Suraksha Logo">
+        </div>
+        <div class="custom-welcome-card" id="welcomeCard">
+            <div id="welcomeContent">
+                <h1>Welcome!</h1>
+                <p class="choose-language">Choose your language / अपनी भाषा चुनें</p>
+                <div class="language-options">
+                    <button onclick="animateWelcome()">
+                      <p>English</p>
+                      <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4 8H12M12 8L8.5 4.5M12 8L8.5 11.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    </button>
+                    <button onclick="animateWelcome()">
+                      <p>हिन्दी</p>
+                      <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4 8H12M12 8L8.5 4.5M12 8L8.5 11.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    </button>
+                </div>
+            </div>
+            <div id="authContent" class="fade-out" style="display:none;">
+                <button class="back-btn" onclick="backToWelcome()">&larr;</button>
+                <h1>Login or Register</h1>
+                <div class="auth-btns">
+                    <button onclick="showLogin()">Login</button>
+                    <button onclick="showRoleSelect()">Register</button>
+                </div>
+            </div>
+            <div id="loginContent" class="fade-out" style="display:none;">
+                <button class="back-btn" onclick="backToAuth()">&larr;</button>
+                <form class="login-form fade-in">
+                    <h1>Login</h1>
+                    <div class="input-box">
+                        <input type="email" placeholder="Email" required>
+                        <i class='bx bxs-envelope'></i>
+                    </div>
+                    <div class="input-box">
+                        <input type="tel" placeholder="Phone Number" required>
+                        <i class='bx bxs-phone'></i>
+                    </div>
+                    <div class="input-box">
+                        <input type="password" placeholder="Password" required>
+                        <i class='bx bxs-lock-alt'></i>
+                    </div>
+                    <button type="submit" class="btn">Login</button>
+                </form>
+                <span class="switch-link" onclick="showRoleSelect()">Don't have an account? Register</span>
+            </div>
+            <div id="roleContent" class="fade-out" style="display:none;">
+                <button class="back-btn" onclick="backToAuth()">&larr;</button>
+                <h1>Select Registration Type</h1>
+                <div class="auth-btns">
+                    <button onclick="showRegister('lawyer')">Lawyer</button>
+                    <button onclick="showRegister('hacker')">Ethical Hacker / Forensic Expert</button>
+                    <button onclick="showRegister('other')">Other Individual Legal Services</button>
+                    <button onclick="showRegister('firm')">Firm</button>
+                </div>
+                <span class="switch-link" onclick="showLogin()">Already have an account? Login</span>
+            </div>
+            <div id="registerContent" class="fade-out" style="display:none;">
+                <button class="back-btn" onclick="backToRole()">&larr;</button>
+                <h1 id="registerTitle">Register</h1>
+                <form class="register-form scrollable-form" id="registerFormFields">
+                    <!-- Dynamic fields will be inserted here -->
+                </form>
+                <span class="switch-link" onclick="showLogin()">Already have an account? Login</span>
+            </div>
+        </div>
+    </main>
+    <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
+    <script>
+    function animateWelcome() {
+        var card = document.getElementById('welcomeCard');
+        card.classList.add('center-animate-card');
+        var logo = document.getElementById('logoCenter');
+        logo.classList.add('logo-animate-down');
+        setTimeout(function() {
+            document.getElementById('welcomeContent').classList.add('fade-out');
+            setTimeout(function() {
+                document.getElementById('welcomeContent').style.display = 'none';
+                var authContent = document.getElementById('authContent');
+                authContent.style.display = '';
+                setTimeout(function() {
+                    authContent.classList.remove('fade-out');
+                    authContent.classList.add('fade-in');
+                }, 10);
+            }, 500);
+        }, 100);
+    }
+    function backToWelcome() {
+        document.getElementById('authContent').classList.remove('fade-in');
+        document.getElementById('authContent').classList.add('fade-out');
+        setTimeout(function() {
+            document.getElementById('authContent').style.display = 'none';
+            var welcomeContent = document.getElementById('welcomeContent');
+            welcomeContent.style.display = '';
+            setTimeout(function() {
+                welcomeContent.classList.remove('fade-out');
+                welcomeContent.classList.add('fade-in');
+            }, 10);
+            // Reset card position and logo
+            var card = document.getElementById('welcomeCard');
+            card.classList.remove('center-animate-card');
+            var logo = document.getElementById('logoCenter');
+            logo.classList.remove('logo-animate-down');
+        }, 500);
+    }
+    function showLogin() { hideAllExcept('loginContent'); }
+    function showRoleSelect() { hideAllExcept('roleContent'); }
+    function showRegister(role) {
+        hideAllExcept('registerContent');
+        var title = document.getElementById('registerTitle');
+        var fields = document.getElementById('registerFormFields');
+        let html = '';
+        if (role === 'lawyer') {
+            title.textContent = 'Register as Lawyer';
+            html += renderInput('Adhaar No.', 'adhaar', true, 'Enter your 12-digit Aadhaar number. Upload a scan or photo of your Aadhaar card.');
+            html += renderInput('Adhaar Linked Phone No.', 'adhaar_phone', false, 'Enter the phone number linked to your Aadhaar.');
+            html += renderInput('Email Linked with the Adhaar linked Phone No.', 'adhaar_email', false, 'Enter the email address linked to your Aadhaar-linked phone number.');
+            html += renderInput('Clear User Image', 'user_image', true, 'Upload a clear, recent photo of yourself. Only images are allowed.', 'image/*');
+            html += renderInput('Driving License', 'driving_license', true, 'Upload a scan or photo of your driving license.');
+            html += renderInput('State Bar Council Enrollment (SBC) ID', 'sbc_id', true, 'Enter your State Bar Council Enrollment ID and upload proof.');
+            html += renderInput('Address where you practice', 'practice_address', false, 'Enter the address where you practice law.');
+            html += renderInput('Working Experience (In years)', 'experience', false, 'Describe your working experience in years and details.');
+            html += renderCaptcha();
+        } else if (role === 'hacker') {
+            title.textContent = 'Register as Ethical Hacker / Forensic Expert';
+            html += renderInput('Adhaar No.', 'adhaar', true, 'Enter your 12-digit Aadhaar number. Upload a scan or photo of your Aadhaar card.');
+            html += renderInput('Adhaar Linked Phone No.', 'adhaar_phone', false, 'Enter the phone number linked to your Aadhaar.');
+            html += renderInput('Email Linked with the Adhaar linked Phone No.', 'adhaar_email', false, 'Enter the email address linked to your Aadhaar-linked phone number.');
+            html += renderInput('Clear User Image', 'user_image', true, 'Upload a clear, recent photo of yourself. Only images are allowed.', 'image/*');
+            html += renderInput('Driving License', 'driving_license', true, 'Upload a scan or photo of your driving license.');
+            html += renderInput('Education/Qualification Certificates (UG, PG, Phd)', 'education_certificates', true, 'Upload your education/qualification certificates. Multiple files allowed.');
+            html += renderInput('Industry Certifications (Eg:- CEH, OSCP, CISSP, CISA, etc)', 'industry_certifications', true, 'Upload your industry certifications. Multiple files allowed.');
+            html += renderInput('Work Place certifications (if any)', 'workplace_certifications', true, 'Upload any workplace certifications. Multiple files allowed.');
+            html += renderCaptcha();
+        } else if (role === 'other') {
+            title.textContent = 'Register as Other Individual Legal Services';
+            html += renderInput('Adhaar No.', 'adhaar', true, 'Enter your 12-digit Aadhaar number. Upload a scan or photo of your Aadhaar card.');
+            html += renderInput('Adhaar Linked Phone No.', 'adhaar_phone', false, 'Enter the phone number linked to your Aadhaar.');
+            html += renderInput('Email Linked with the Adhaar linked Phone No.', 'adhaar_email', false, 'Enter the email address linked to your Aadhaar-linked phone number.');
+            html += renderInput('Clear User Image', 'user_image', true, 'Upload a clear, recent photo of yourself. Only images are allowed.', 'image/*');
+            html += renderInput('Driving License', 'driving_license', true, 'Upload a scan or photo of your driving license.');
+            html += renderInput('Education/Qualification Certificates (UG, PG, Phd)', 'education_certificates', true, 'Upload your education/qualification certificates. Multiple files allowed.');
+            html += renderInput('Industry Certifications (Eg:- CEH, OSCP, CISSP, CISA, etc)', 'industry_certifications', true, 'Upload your industry certifications. Multiple files allowed.');
+            html += renderInput('Work Place certifications (if any)', 'workplace_certifications', true, 'Upload any workplace certifications. Multiple files allowed.');
+            html += renderCaptcha();
+        } else if (role === 'firm') {
+            title.textContent = 'Register as Firm';
+            html += renderInput('Certificate of Incorporation (COI)', 'coi', true, 'Upload your Certificate of Incorporation.');
+            html += renderInput('Memorandum of Association (MOA)', 'moa', true, 'Upload your Memorandum of Association.');
+            html += renderInput('PAN Card of the Organization', 'pan', true, 'Upload the PAN card of your organization.');
+            html += renderInput('GST Registration Certificate (GSTIN)', 'gst', true, 'Upload your GST registration certificate.');
+            html += renderInput('Registered Office Address Proof/Address proof of CEO', 'address_proof', true, 'Upload address proof (utility bill, lease, property doc, bank statement, etc).');
+            html += '<button type="button" class="contact-btn animated-btn">For any problem/inquiry, contact us</button>';
+            html += renderCaptcha();
+        }
+        html += '<button type="submit" class="btn animated-btn">Register</button>';
+        fields.innerHTML = html;
+        attachInfoIconListeners();
+    }
+
+    function renderInput(label, name, isFile, info, accept) {
+        let id = 'input_' + name;
+        let infoIcon = `<button type='button' class='info-icon' tabindex='0' onclick='toggleTooltip(this)' onblur='hideTooltip(this)' aria-label='Info'>&#9432;</button><div class='info-tooltip'>${info}</div>`;
+        let html = `<div class="input-box" style="position:relative;display:flex;flex-direction:column;align-items:stretch;">`;
+        html += `<label for="${id}" style="display:block;text-align:left;font-weight:600;margin-bottom:6px;">${label} ${infoIcon}</label>`;
+        if (isFile) {
+            if (name === 'adhaar') {
+                // Add a typing box for Aadhaar No.
+                html += `<input type="text" id="${id}_text" name="${name}_text" required autocomplete="off" placeholder="Enter Aadhaar Number" style="margin-bottom:10px;">`;
+            }
+            html += `<div class="file-upload-box">
+                <button type="button" class="plusButton" id="trigger_${id}" tabindex="0" aria-label="Attach files">
+                    <svg class="plusIcon" viewBox="0 0 24 24"><rect x="10" y="4" width="4" height="16" rx="2"/><rect x="4" y="10" width="16" height="4" rx="2"/></svg>
+                </button>
+                <input type="file" id="${id}" name="${name}" ${accept ? `accept='${accept},application/pdf,image/*'` : "accept='application/pdf,image/*'"} multiple style="display: none;">
+                <div class="file-upload-list" id="list_${id}"></div>
+            </div>`;
+        } else {
+            html += `<input type="text" id="${id}" name="${name}" required autocomplete="off">`;
+        }
+        html += `</div>`;
+        
+        // Add a new field for Aadhaar Card
+        if (name === 'adhaar') {
+            let adhaarCardId = 'input_adhaar_card';
+            html += `<div class="input-box" style="position:relative;display:flex;flex-direction:column;align-items:stretch;">`;
+            html += `<label for="${adhaarCardId}" style="display:block;text-align:left;font-weight:600;margin-bottom:6px;">Aadhaar Card ${infoIcon}</label>`;
+            html += `<div class="file-upload-box">
+                <button type="button" class="plusButton" id="trigger_${adhaarCardId}" tabindex="0" aria-label="Attach Aadhaar Card">
+                    <svg class="plusIcon" viewBox="0 0 24 24"><rect x="10" y="4" width="4" height="16" rx="2"/><rect x="4" y="10" width="16" height="4" rx="2"/></svg>
+                </button>
+                <input type="file" id="${adhaarCardId}" name="adhaar_card" accept="application/pdf,image/*" style="display: none;">
+                <div class="file-upload-list" id="list_${adhaarCardId}"></div>
+            </div>`;
+            html += `</div>`;
+        }
+        return html;
+    }
+
+    function renderCaptcha() {
+        // Google reCAPTCHA widget placeholder (replace with real site key if available)
+        return `<div style='margin:18px 0;'><div class='g-recaptcha' data-sitekey='YOUR_RECAPTCHA_SITE_KEY'></div></div>`;
+    }
+
+    function attachInfoIconListeners() {
+        var icons = document.querySelectorAll('.info-icon');
+        icons.forEach(function(icon) {
+            icon.addEventListener('click', function(e) {
+                e.stopPropagation();
+                icons.forEach(i => { if(i!==icon) i.classList.remove('active'); });
+                icon.classList.toggle('active');
+            });
+        });
+        document.addEventListener('click', function() {
+            icons.forEach(i => i.classList.remove('active'));
+        });
+    }
+    function toggleTooltip(el) {
+        el.classList.toggle('active');
+    }
+    function hideTooltip(el) {
+        setTimeout(function(){ el.classList.remove('active'); }, 200);
+    }
+    function backToAuth() { hideAllExcept('authContent'); }
+    function backToRole() { hideAllExcept('roleContent'); }
+    function hideAllExcept(showId) {
+        const ids = ['authContent','loginContent','roleContent','registerContent'];
+        ids.forEach(id => {
+            const el = document.getElementById(id);
+            if (el) {
+                if (id === showId) {
+                    el.style.display = '';
+                    setTimeout(() => { el.classList.remove('fade-out'); el.classList.add('fade-in'); }, 10);
+                } else {
+                    el.classList.remove('fade-in');
+                    el.classList.add('fade-out');
+                    setTimeout(() => { el.style.display = 'none'; }, 500);
+                }
+            }
+        });
+    }
+
+    // Add file upload label click handler for all file inputs
+    document.addEventListener('change', function(e) {
+        if (e.target.type === 'file') {
+            const list = document.getElementById('list_' + e.target.id);
+            if (list) {
+                let files = Array.from(e.target.files).map(f => f.name).join(', ');
+                list.textContent = files;
+            }
+        }
+    });
+    document.addEventListener('click', function(e) {
+        if (e.target.classList.contains('plusButton')) {
+            const forId = e.target.id.replace('trigger_', '');
+            if (forId) {
+                document.getElementById(forId).click();
+            }
+        }
+    });
+
+    document.querySelectorAll('.login-form').forEach(form => {
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            window.location.href = 'home.html';
+        });
+    });
+    document.querySelectorAll('.register-form').forEach(form => {
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            window.location.href = 'home.html';
+        });
+    });
+    </script>
+</body>
+</html>
